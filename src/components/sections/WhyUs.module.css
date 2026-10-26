@@ -1,0 +1,44 @@
+.section {
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  padding-block: var(--s-24); background: var(--navy-950); color: var(--text-on-dark);
+}
+
+/* ---------- heading: words rise out of a mask, then the gold line draws ---------- */
+.titleRow { display: flex; align-items: center; gap: var(--s-6); margin-bottom: var(--s-16); }
+.title { flex-shrink: 0; color: var(--white); font-size: var(--step-3); line-height: 1.15; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; margin-right: 0.28em; }
+.mask:last-child { margin-right: 0; }
+.word { display: inline-block; }
+.gold { color: var(--gold-300); }
+[data-inview="true"] .word { animation: rise 0.9s var(--ease) calc(var(--k) * 0.14s + 0.1s) backwards; }
+
+.rule { flex: 1; height: 2px; min-width: 2rem; background: linear-gradient(90deg, var(--gold-500), transparent); transform-origin: left; }
+[data-inview="true"] .rule { animation: lineIn 1.2s var(--ease) 0.55s backwards; }
+
+/* ---------- points ---------- */
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-12) var(--s-16); }
+.list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+[data-inview="true"] .list li { animation: fadeUp 0.8s var(--ease) calc(var(--k) * 0.1s + 0.6s) backwards; }
+
+.check { width: 1.25rem; height: 1.25rem; margin-top: 0.2rem; fill: none; stroke: var(--gold-500); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.check path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+[data-inview="true"] .check path { animation: draw 0.6s ease-out calc(var(--k) * 0.1s + 0.9s) backwards; }
+
+.list h3 { font-family: var(--font-body); font-size: var(--step-0); font-weight: 600; letter-spacing: 0; color: var(--white); transition: color 0.25s; }
+.list li:hover h3 { color: var(--gold-300); }
+.list p { margin-top: var(--s-2); font-size: var(--step--1); line-height: 1.75; opacity: 0.78; }
+
+@keyframes rise   { from { transform: translateY(105%); } }
+@keyframes lineIn { from { transform: scaleX(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
+@keyframes draw   { from { stroke-dashoffset: 1; } }
+
+@media (max-width: 48rem) {
+  .section { padding-block: var(--s-16); }
+  .titleRow { margin-bottom: var(--s-12); }
+  .list { grid-template-columns: 1fr; gap: var(--s-8); }
+}
+@media (max-width: 30rem) {
+  .titleRow { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .rule { width: 100%; flex: none; }
+}

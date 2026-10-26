@@ -1,0 +1,20 @@
+.section { padding-block: var(--s-24); }
+
+.titleRow { display: flex; align-items: center; gap: var(--s-6); }
+.titleRow h2 { flex-shrink: 0; font-size: var(--step-2); text-wrap: nowrap; }
+.rule {
+  flex: 1; height: 2px; min-width: 2rem;
+  background: linear-gradient(90deg, var(--gold-500), transparent);
+  transform-origin: left; animation: ruleIn 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s backwards;
+}
+.intro { margin-top: var(--s-4); max-width: 40rem; color: var(--text-muted); }
+.note { margin-top: var(--s-8); font-size: var(--step--1); color: var(--text-muted); }
+
+@keyframes ruleIn { from { transform: scaleX(0); } }
+
+@media (max-width: 40rem) {
+  .section { padding-block: var(--s-16); }
+  .titleRow { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .titleRow h2 { text-wrap: balance; }
+  .rule { width: 100%; flex: none; }
+}

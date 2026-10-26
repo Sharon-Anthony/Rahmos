@@ -1,0 +1,44 @@
+.eyebrow { font-size: var(--step--1); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-500); }
+
+.story { padding-block: var(--s-24) var(--s-16); }
+.intro { margin-top: var(--s-4); max-width: 34ch; font-family: var(--font-display); font-size: var(--step-3); line-height: 1.25; color: var(--navy-900); }
+.body { margin-top: var(--s-12); columns: 2; column-gap: var(--s-16); color: var(--text-muted); }
+.body p { max-width: none; break-inside: avoid; }
+.body p + p { margin-top: var(--s-4); }
+
+.facts { margin-top: var(--s-16); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.facts > div { padding: var(--s-6) var(--s-6) var(--s-6) 0; border-bottom: 1px solid var(--line); }
+.facts > div:not(:nth-child(3n + 1)) { padding-left: var(--s-6); border-left: 1px solid var(--line); }
+.facts dt { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+.facts dd { margin: var(--s-2) 0 0; font-family: var(--font-display); font-size: var(--step-1); color: var(--navy-900); }
+
+.principles { background: var(--bg-alt); padding-block: var(--s-24); }
+.principles h2 { margin-top: var(--s-3); max-width: 20ch; }
+.list { margin-top: var(--s-12); border-top: 1px solid var(--cream-200); }
+.list li { display: grid; grid-template-columns: 5rem 16rem 1fr; gap: var(--s-6); align-items: baseline; padding-block: var(--s-8); border-bottom: 1px solid var(--cream-200); transition: padding-left 0.3s ease; }
+.list li:hover { padding-left: var(--s-3); }
+.n { font-family: var(--font-display); font-size: var(--step-2); color: var(--gold-500); }
+.list h3 { font-size: var(--step-1); }
+.list p { max-width: none; color: var(--text-muted); }
+
+.vm { background: var(--navy-950); color: var(--text-on-dark); padding-block: var(--s-24); }
+.vmGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-16); }
+.vmGrid > div { position: relative; padding-top: var(--s-12); }
+.vmGrid > div::before { content: "\201C"; position: absolute; top: -0.25em; left: -0.05em; font-family: var(--font-display); font-size: 6rem; line-height: 1; color: rgb(224 192 104 / 0.25); }
+.vmGrid h2 { color: var(--gold-300); font-size: var(--step-2); margin-bottom: var(--s-4); }
+.vmGrid p { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.5; }
+
+@media (max-width: 56rem) {
+  .story, .principles, .vm { padding-block: var(--s-16); }
+  .body { columns: 1; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts > div:not(:nth-child(3n + 1)) { padding-left: 0; border-left: 0; }
+  .facts > div:nth-child(even) { padding-left: var(--s-6); border-left: 1px solid var(--line); }
+  .list li { grid-template-columns: 3rem 1fr; gap: var(--s-2) var(--s-4); }
+  .list p { grid-column: 2; }
+  .vmGrid { grid-template-columns: 1fr; gap: var(--s-12); }
+}
+@media (max-width: 36rem) {
+  .facts { grid-template-columns: 1fr; }
+  .facts > div:nth-child(even) { padding-left: 0; border-left: 0; }
+}

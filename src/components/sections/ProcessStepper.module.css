@@ -1,0 +1,145 @@
+.stepper {
+  --node: 3.75rem;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --edge: color-mix(in srgb, var(--navy-900) 20%, transparent);
+  --secs: 3s;
+}
+
+/* ---------- rail ---------- */
+.rail { position: relative; }
+.track {
+  position: absolute; top: calc(var(--node) / 2 - 1.5px); left: 10%; right: 10%; height: 3px;
+  background: var(--edge); border-radius: 2px;
+}
+.fill {
+  height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+  width: calc(var(--i) / var(--last) * 100%);
+  transition: width 0.8s var(--ease);
+  box-shadow: 0 0 12px rgb(201 162 39 / 0.55);
+}
+[data-inview="true"] .fill { animation: draw 1.1s var(--ease) backwards; }
+
+.nodes { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); }
+.nodes li { display: flex; flex-direction: column; align-items: center; gap: var(--s-3); }
+[data-inview="true"] .nodes li { animation: pop 0.6s var(--ease) calc(var(--k) * 0.09s + 0.15s) backwards; }
+
+.node {
+  position: relative; width: var(--node); height: var(--node); border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; padding: 0;
+  background: var(--white); border: 1.5px solid var(--edge); color: var(--text-muted);
+  transition: transform 0.45s var(--ease), background-color 0.35s, color 0.35s, border-color 0.35s, box-shadow 0.45s;
+}
+.node:hover { transform: translateY(-3px); border-color: var(--gold-500); color: var(--navy-900); }
+.nodeIcon { width: 52%; height: 52%; transition: transform 0.45s var(--ease); }
+.node:hover .nodeIcon { transform: scale(1.08) rotate(-4deg); }
+
+.done { border-color: var(--gold-500); color: var(--navy-900); }
+.done::after {
+  content: ""; position: absolute; right: -1px; bottom: -1px; width: 0.8rem; height: 0.8rem; border-radius: 50%;
+  background: var(--gold-500) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='m3 6.2 2 2L9 4' fill='none' stroke='%230f2440' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
+  box-shadow: 0 0 0 2px var(--bg-alt);
+}
+
+.active {
+  background: var(--navy-900); color: var(--gold-300); border-color: var(--navy-900);
+  transform: scale(1.14); box-shadow: 0 10px 26px rgb(15 36 64 / 0.32);
+}
+.active:hover { transform: scale(1.14); color: var(--gold-300); border-color: var(--navy-900); }
+.active::before {
+  content: ""; position: absolute; inset: -0.55rem; border-radius: 50%;
+  border: 1px solid var(--gold-500); opacity: 0; animation: halo 2.6s ease-out infinite;
+}
+
+.ring { position: absolute; left: 50%; top: 50%; width: calc(100% + 0.7rem); height: calc(100% + 0.7rem); max-width: none; translate: -50% -50%; rotate: -90deg; pointer-events: none; }
+.arc {
+  fill: none; stroke: var(--gold-500); stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: sweep var(--secs) linear forwards;
+}
+.stepper:hover .arc, .stepper:focus-within .arc { animation-play-state: paused; }
+
+.label { font-size: var(--step--1); letter-spacing: 0.04em; color: var(--text-muted); text-align: center; transition: color 0.3s; }
+.labelActive { color: var(--navy-900); font-weight: 600; }
+
+/* ---------- panel ---------- */
+.panelWrap { position: relative; margin-top: var(--s-12); }
+.notch {
+  position: absolute; z-index: 1; top: -0.65rem; width: 1.3rem; height: 1.3rem; background: var(--navy-900);
+  left: calc((var(--i) + 0.5) / 5 * 100%); translate: -50% 0; rotate: 45deg; border-radius: 3px 0 0 0;
+  transition: left 0.8s var(--ease);
+}
+.panel {
+  position: relative; overflow: hidden; border-radius: var(--radius-md); color: var(--text-on-dark);
+  background: linear-gradient(135deg, var(--navy-950), var(--navy-900) 55%, var(--navy-700));
+  padding: var(--s-12) var(--s-12) var(--s-16); min-height: 17rem;
+  box-shadow: 0 24px 50px -24px rgb(12 30 56 / 0.55);
+}
+.orbit {
+  position: absolute; right: -7rem; top: -7rem; width: 22rem; aspect-ratio: 1; border-radius: 50%;
+  border: 3rem solid rgb(120 150 130 / 0.16); pointer-events: none;
+  rotate: calc(var(--i) * 40deg); transition: rotate 1.2s var(--ease);
+}
+
+.content {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-12); align-items: center;
+}
+.ghost {
+  position: absolute; right: 0; top: 50%; translate: 0 -50%; z-index: 0; user-select: none;
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(7rem, 16vw, 12rem); line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px rgb(224 192 104 / 0.28);
+  animation: slide 0.8s var(--ease) backwards;
+}
+.badge {
+  position: relative; z-index: 1; width: 8.5rem; aspect-ratio: 1; border-radius: 50%;
+  display: grid; place-items: center; color: var(--navy-950);
+  background: radial-gradient(circle at 30% 25%, var(--gold-300), var(--gold-500));
+  box-shadow: 0 0 0 0.5rem rgb(224 192 104 / 0.12), 0 14px 30px rgb(0 0 0 / 0.3);
+  animation: badgeIn 0.8s var(--ease) backwards;
+}
+.badge::before {
+  content: ""; position: absolute; inset: -0.9rem; border-radius: 50%;
+  border: 1.5px dashed rgb(224 192 104 / 0.55); animation: spin 28s linear infinite;
+}
+.badgeIcon { width: 52%; height: 52%; --icon-fill: var(--navy-950); }
+
+.copy { position: relative; z-index: 1; max-width: 34rem; }
+.copy > * { animation: slide 0.7s var(--ease) backwards; }
+.kicker { color: var(--gold-300); font-size: var(--step--1); letter-spacing: 0.22em; text-transform: uppercase; animation-delay: 0.08s; }
+.copy h3 { margin-top: var(--s-3); font-size: var(--step-3); animation-delay: 0.16s; }
+.text { margin-top: var(--s-4); font-size: var(--step-1); font-weight: 300; animation-delay: 0.26s; }
+
+.controls { position: absolute; z-index: 2; right: var(--s-6); bottom: var(--s-4); display: flex; gap: var(--s-2); }
+.arrow {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); height: 2.5rem; min-width: 2.5rem; padding-inline: 0.7rem;
+  border-radius: 999px; cursor: pointer; background: rgb(255 255 255 / 0.06); color: var(--text-on-dark);
+  border: 1px solid rgb(224 192 104 / 0.4); font-size: var(--step--1);
+  transition: background-color 0.25s, color 0.25s, transform 0.25s var(--ease);
+}
+.arrow svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.arrow:hover:not(:disabled) { background: var(--gold-500); color: var(--navy-950); transform: translateY(-2px); }
+.arrow:disabled { opacity: 0.3; cursor: default; }
+.arrowNext:hover:not(:disabled) svg { animation: nudge 0.6s ease-in-out infinite alternate; }
+
+/* ---------- motion ---------- */
+@keyframes draw    { from { width: 0; } }
+@keyframes pop     { from { opacity: 0; transform: translateY(14px) scale(0.6); } }
+@keyframes sweep   { to { stroke-dashoffset: 0; } }
+@keyframes halo    { 0% { opacity: 0.7; transform: scale(0.92); } 100% { opacity: 0; transform: scale(1.35); } }
+@keyframes slide   { from { opacity: 0; transform: translateX(var(--dx, 28px)); } }
+@keyframes badgeIn { from { opacity: 0; transform: translateX(var(--dx, 28px)) scale(0.7) rotate(-25deg); } }
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes nudge   { to { transform: translateX(3px); } }
+
+/* ---------- small screens ---------- */
+@media (max-width: 48rem) {
+  .stepper { --node: 2.8rem; }
+  .label { display: none; }
+  .panelWrap { margin-top: var(--s-8); }
+  .panel { padding: var(--s-8) var(--s-6) calc(var(--s-16) + var(--s-2)); min-height: 0; }
+  .content { grid-template-columns: 1fr; gap: var(--s-6); }
+  .badge { width: 5rem; }
+  .ghost { top: 0; translate: 0; font-size: 6rem; }
+  .arrowNext span { display: none; }
+}
+.orbit { display: none; }
+.active::before { display: none; }

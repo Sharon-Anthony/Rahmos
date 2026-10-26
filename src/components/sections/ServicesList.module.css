@@ -1,0 +1,107 @@
+.section { padding-block: var(--s-24); }
+
+.head { display: flex; align-items: center; gap: var(--s-6); }
+.head h2 { font-size: var(--step-3); white-space: nowrap; }
+.rule { flex: 1; height: 1.5px; background: linear-gradient(90deg, var(--gold-500), transparent); }
+.lead { margin-top: var(--s-6); max-width: none; }
+
+.grid {
+  margin-top: var(--s-12);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6);
+}
+
+.card {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 3 / 4; border-radius: 14px;
+  background: linear-gradient(160deg, var(--navy-950), var(--navy-700));
+  box-shadow: 0 10px 24px -14px rgb(15 36 64 / 0.5);
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.5s ease;
+}
+.card:hover, .card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 40px -22px rgb(15 36 64 / 0.6);
+}
+
+/* photo layer: slow zoom + darken on hover */
+.photo {
+  position: absolute; inset: 0; z-index: 0;
+  background: var(--img) center / cover no-repeat;
+  transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s ease;
+}
+.card:hover .photo, .card:focus-within .photo { transform: scale(1.1); filter: brightness(0.72) saturate(1.1); }
+
+/* shade so the title is always readable */
+.card::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, rgb(12 30 56 / 0.78), rgb(12 30 56 / 0) 42%, rgb(12 30 56 / 0) 62%, rgb(12 30 56 / 0.5));
+}
+
+.card h3 {
+  position: absolute; inset: 0 0 auto 0; z-index: 2;
+  padding: var(--s-6) var(--s-6) 0; text-align: center;
+  font-size: var(--step-2); color: var(--white); text-shadow: 0 1px 14px rgb(0 0 0 / 0.35);
+}
+.card h3::after {
+  content: ""; display: block; width: 2.5rem; height: 2px; margin: var(--s-3) auto 0;
+  background: var(--gold-300); transition: width 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card:hover h3::after, .card:focus-within h3::after { width: 5rem; }
+
+/* detail panel slides up from the bottom */
+.panel {
+  position: absolute; inset: auto 0 0 0; z-index: 2;
+  display: flex; flex-direction: column; gap: var(--s-3);
+  padding: var(--s-16) var(--s-6) var(--s-6);
+  background: linear-gradient(to top, rgb(12 30 56 / 0.97) 62%, rgb(12 30 56 / 0));
+  color: var(--text-on-dark);
+  transform: translateY(101%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card:hover .panel, .card:focus-within .panel { transform: none; }
+
+.panel > * {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.card:hover .panel > *, .card:focus-within .panel > * { opacity: 1; transform: none; }
+.panel > :nth-child(1) { transition-delay: 0.14s; }
+.panel > :nth-child(2) { transition-delay: 0.22s; }
+.panel > :nth-child(3) { transition-delay: 0.3s; }
+
+.panel p { font-size: var(--step--1); line-height: 1.65; max-width: none; }
+
+.tags {
+  align-self: flex-start; padding: 0.25em 0.85em;
+  border: 1px solid var(--gold-300); border-radius: 999px;
+  color: var(--gold-300); font-size: 0.75rem; letter-spacing: 0.05em;
+}
+.more {
+  align-self: flex-start; padding-bottom: 2px;
+  color: var(--gold-300); font-size: var(--step--1); font-weight: 600; text-decoration: none;
+  border-bottom: 1.5px solid var(--gold-300);
+}
+.more:hover { color: var(--white); border-color: var(--white); }
+
+.cta { margin-top: var(--s-12); }
+
+/* cards rise into view while scrolling (browsers without support just show them) */
+@supports (animation-timeline: view()) {
+  .card { animation: cardIn linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(40px) scale(0.96); } }
+
+@media (max-width: 64rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) {
+  .grid { grid-template-columns: 1fr; }
+  .card { aspect-ratio: 4 / 5; }
+  .section { padding-block: var(--s-16); }
+}
+
+/* touch screens have no hover, so keep the panel open */
+@media (hover: none) {
+  .card { aspect-ratio: auto; min-height: 30rem; }
+  .panel { transform: none; background: linear-gradient(to top, rgb(12 30 56 / 0.96) 80%, rgb(12 30 56 / 0)); }
+  .panel > * { opacity: 1; transform: none; }
+}
+
+.cover { position: absolute; inset: 0; z-index: 3; }

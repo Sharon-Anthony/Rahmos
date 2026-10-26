@@ -1,0 +1,60 @@
+/* Design tokens. The only place raw colours, sizes and spacing are defined.
+   Colour values are approximated from the brochure; sample exact values from the PDF/logo before launch. */
+:root {
+  /* colour */
+  --navy-950: #0c1e38;
+  --navy-900: #0f2440;
+  --navy-700: #1b4a7a;
+  --gold-500: #c9a227;
+  --gold-300: #e0c068;
+  --cream-50: #f9f6ef;
+  --cream-200: #ece6d6;
+  --ink: #14213a;
+  --ink-soft: #46506a;
+  --white: #ffffff;
+
+  /* semantic roles (components use these, not the raw values above) */
+  --bg: var(--white);
+  --bg-alt: var(--cream-50);
+  --bg-dark: var(--navy-900);
+  --text: var(--ink);
+  --text-muted: var(--ink-soft);
+  --text-on-dark: #eef2f8;
+  --accent: var(--gold-500);
+  --accent-on-dark: var(--gold-300);
+  --line: var(--cream-200);
+  --focus: var(--gold-500);
+
+  /* type */
+  --font-display: "Playfair Display Variable", "Playfair Display", Georgia, serif;
+  --font-body: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: clamp(0.84rem, 0.82rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
+  --step-1: clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 2.9rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3.5vw, 4.2rem);
+
+  /* space (4px base) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-24: 6rem;
+  --s-32: 8rem;
+
+  /* layout */
+  --container: 72rem;
+  --container-narrow: 46rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-h: 4.5rem;
+
+  /* shape: deliberately small and varied, not one radius everywhere */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+}

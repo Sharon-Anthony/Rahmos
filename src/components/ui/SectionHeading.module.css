@@ -1,0 +1,4 @@
+.head { margin-bottom: var(--s-12); }
+.head p { margin-top: var(--s-4); color: var(--text-muted); }
+.dark h2 { color: var(--white); }
+.dark p { color: var(--text-on-dark); opacity: 0.8; }

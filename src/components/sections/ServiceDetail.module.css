@@ -1,0 +1,101 @@
+.hero {
+  position: relative; overflow: hidden; color: var(--white);
+  background: linear-gradient(150deg, var(--navy-950), var(--navy-900) 55%, var(--navy-700));
+  padding-block: var(--s-16) var(--s-12);
+}
+.heroGrid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--s-16); align-items: center; }
+.crumbs { display: flex; gap: var(--s-2); flex-wrap: wrap; font-size: var(--step--1); color: var(--text-on-dark); opacity: 0.8; }
+.crumbs a { text-decoration: none; border-bottom: 1px solid rgb(255 255 255 / 0.3); }
+.crumbs a:hover { border-color: var(--gold-300); color: var(--gold-300); }
+.eyebrow { margin-top: var(--s-8); color: var(--accent-on-dark); font-size: var(--step--1); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+.heroText h1 { margin-top: var(--s-3); font-size: var(--step-4); }
+.intro { margin-top: var(--s-6); font-size: var(--step-1); font-weight: 300; line-height: 1.6; color: var(--text-on-dark); opacity: 0.92; }
+.heroCta { margin-top: var(--s-8); }
+
+.arch {
+  aspect-ratio: 4 / 3; width: 100%; max-width: none;
+  border-radius: 14px;
+  background: var(--img) center / cover no-repeat, var(--navy-700);
+  box-shadow: 0 20px 40px -24px rgb(0 0 0 / 0.6);
+}
+.facts {
+  margin-top: var(--s-16); padding-top: var(--s-6);
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgb(255 255 255 / 0.18);
+}
+.facts > div { padding-right: var(--s-6); }
+.facts > div + div { padding-left: var(--s-6); border-left: 1px solid rgb(255 255 255 / 0.18); }
+.facts dt { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-on-dark); }
+.facts dd { margin: var(--s-2) 0 0; font-family: var(--font-display); font-size: var(--step-1); }
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: var(--s-24); padding-block: var(--s-24); align-items: start; }
+.main { display: grid; gap: var(--s-24); }
+.main h2 { display: flex; align-items: baseline; gap: var(--s-4); font-size: var(--step-3); }
+.main h2 span { font-family: var(--font-body); font-size: var(--step--1); font-weight: 600; letter-spacing: 0.1em; color: var(--accent); }
+
+.included { margin-top: var(--s-8); border-top: 1px solid var(--line); }
+.included li { display: grid; grid-template-columns: 13rem 1fr; gap: var(--s-6); padding-block: var(--s-6); border-bottom: 1px solid var(--line); }
+.included h3 { font-size: var(--step-1); }
+.included p { color: var(--text-muted); }
+
+.steps { margin-top: var(--s-8); position: relative; display: grid; gap: var(--s-8); padding-left: var(--s-8); }
+.steps::before { content: ""; position: absolute; left: 0.45rem; top: 0.6rem; bottom: 0.6rem; width: 1.5px; background: linear-gradient(var(--gold-500), var(--line)); }
+.steps li { position: relative; }
+.steps li::before {
+  content: ""; position: absolute; left: calc(-1 * var(--s-8) + 0.1rem); top: 0.45rem;
+  width: 0.75rem; height: 0.75rem; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--gold-500);
+}
+.steps h3 { font-size: var(--step-1); }
+.steps p { margin-top: var(--s-1); color: var(--text-muted); }
+
+.docs { margin-top: var(--s-8); display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3) var(--s-8); }
+.docs li { display: flex; gap: var(--s-3); align-items: flex-start; }
+.docs svg { flex: none; margin-top: 0.25rem; color: var(--gold-500); }
+.note { margin-top: var(--s-8); padding: var(--s-4) var(--s-6); border-left: 3px solid var(--gold-500); background: var(--bg-alt); font-size: var(--step--1); max-width: none; }
+
+.faqs { margin-top: var(--s-8); border-top: 1px solid var(--line); }
+.faqs details { border-bottom: 1px solid var(--line); }
+.faqs summary {
+  list-style: none; cursor: pointer; padding-block: var(--s-4);
+  display: flex; justify-content: space-between; gap: var(--s-4);
+  font-family: var(--font-display); font-size: var(--step-1);
+}
+.faqs summary::-webkit-details-marker { display: none; }
+.faqs summary::after { content: "+"; color: var(--accent); font-family: var(--font-body); transition: transform 0.3s ease; }
+.faqs details[open] summary::after { transform: rotate(45deg); }
+.faqs details p { padding-bottom: var(--s-6); color: var(--text-muted); }
+
+.aside { position: sticky; top: calc(var(--header-h) + var(--s-6)); display: grid; gap: var(--s-8); }
+.asideCard { padding: var(--s-6); background: var(--bg-alt); border-radius: 14px; border: 1px solid var(--line); }
+.asideCard h2 { font-size: var(--step-2); }
+.asideCard p { margin-block: var(--s-3) var(--s-6); color: var(--text-muted); font-size: var(--step--1); }
+.asideCard .alt { margin: var(--s-4) 0 0; }
+.alt a { font-weight: 600; }
+.others h2 { font-size: var(--step-1); }
+.others ul { margin-top: var(--s-3); border-top: 1px solid var(--line); }
+.others li a { display: block; padding-block: var(--s-3); border-bottom: 1px solid var(--line); text-decoration: none; font-size: var(--step--1); transition: padding-left 0.25s ease, color 0.25s ease; }
+.others li a:hover { padding-left: var(--s-2); color: var(--accent); }
+
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); padding-bottom: var(--s-24); }
+.pager a { display: grid; gap: var(--s-1); padding: var(--s-6); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; font-family: var(--font-display); font-size: var(--step-1); transition: border-color 0.25s ease, transform 0.25s ease; }
+.pager a:last-child { text-align: right; }
+.pager a:hover { border-color: var(--gold-500); transform: translateY(-3px); }
+.pager small { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+
+@media (max-width: 64rem) {
+  .body { grid-template-columns: 1fr; gap: var(--s-16); }
+  .aside { position: static; }
+}
+@media (max-width: 48rem) {
+  .heroGrid { grid-template-columns: 1fr; gap: var(--s-12); }
+  .arch { max-width: 16rem; order: -1; }
+  .facts { grid-template-columns: 1fr; gap: var(--s-4); }
+  .facts > div + div { padding-left: 0; border-left: 0; }
+  .included li { grid-template-columns: 1fr; gap: var(--s-2); }
+  .docs { grid-template-columns: 1fr; }
+  .pager { grid-template-columns: 1fr; }
+  .pager a:last-child { text-align: left; }
+  .body { padding-block: var(--s-16); }
+  .main { gap: var(--s-16); }
+}

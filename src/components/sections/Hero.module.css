@@ -1,0 +1,69 @@
+.hero {
+  position: relative; overflow: hidden; color: var(--white);
+  min-height: calc(100svh - var(--header-h)); display: flex; align-items: center;
+  padding-block: var(--s-16);
+  background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 40%, var(--navy-700) 100%);
+}
+
+/* the two circles from the brochure cover */
+.ring {
+  position: absolute; right: -9rem; top: -9rem; width: 40rem; aspect-ratio: 1; border-radius: 50%;
+  border: 5.5rem solid rgb(120 150 130 / 0.26);
+  animation: ringIn 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards, drift 22s ease-in-out 1.6s infinite alternate;
+}
+.disc {
+  position: absolute; left: -7rem; bottom: -9rem; width: 17rem; aspect-ratio: 1; border-radius: 50%;
+  background: rgb(120 150 130 / 0.26);
+  animation: discIn 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s backwards;
+}
+
+.content { position: relative; z-index: 1; }
+
+.eyebrow {
+  font-size: var(--step--1); letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-300);
+  animation: fadeUp 0.8s ease-out var(--d) backwards;
+}
+
+.name { margin-top: var(--s-4); font-size: clamp(2.4rem, 1.1rem + 4.6vw, 4.5rem); line-height: 1.12; letter-spacing: 0; }
+.mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.word { display: inline-block; animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d) backwards; }
+.gold { color: var(--gold-300); }
+
+.tagline {
+  margin-top: var(--s-6); max-width: 44rem; font-size: var(--step-1); font-weight: 300; color: var(--text-on-dark);
+  animation: fadeUp 0.9s ease-out var(--d) backwards;
+}
+
+.facts { display: flex; flex-wrap: wrap; gap: var(--s-8) var(--s-12); margin-top: var(--s-12); }
+.facts li {
+  position: relative; padding-left: var(--s-4); display: grid; gap: var(--s-1);
+  animation: fadeUp 0.7s ease-out calc(var(--d) + 0.25s) backwards;
+}
+.facts li::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold-500);
+  transform-origin: top; animation: grow 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d) backwards;
+}
+.facts strong { font-size: var(--step-0); }
+.facts span { font-size: var(--step--1); opacity: 0.85; }
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--s-4);
+  margin-top: var(--s-16); padding: var(--s-4) var(--s-6);
+  background: rgb(255 255 255 / 0.07); border: 1px solid rgb(224 192 104 / 0.28); border-radius: var(--radius-md);
+  font-size: var(--step--1);
+  animation: fadeUp 0.9s ease-out var(--d) backwards;
+}
+.bar p { max-width: none; }
+
+@keyframes rise   { from { transform: translateY(105%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } }
+@keyframes grow   { from { transform: scaleY(0); } }
+@keyframes ringIn { from { opacity: 0; transform: scale(0.86) rotate(-20deg); } }
+@keyframes discIn { from { opacity: 0; transform: translate(-30%, 30%) scale(0.8); } }
+@keyframes drift  { to { transform: translate(-1.5rem, 1.2rem) scale(1.03); } }
+
+@media (max-width: 40rem) {
+  .ring { width: 26rem; border-width: 3.5rem; right: -10rem; top: -8rem; }
+  .facts { flex-direction: column; gap: var(--s-6); }
+  .bar { margin-top: var(--s-12); }
+}
