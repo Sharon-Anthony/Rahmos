@@ -48,8 +48,9 @@ export function Header() {
     <header className={cx(styles.header, scrolled && styles.scrolled)}>
       <Container className={styles.inner}>
         <Link href="/" className={styles.brand} aria-label={`${site.shortName}, home`} onClick={close}>
-          <span className={styles.mark} aria-hidden="true">R</span>
+          <img src="/images/logo.png" alt="Rahmos" height="54" />
           <span className={styles.word}>{site.shortName}</span>
+         
         </Link>
 
         <button

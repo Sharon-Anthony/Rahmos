@@ -37,20 +37,21 @@ export function Footer() {
       <Container>
         <div className={styles.cols}>
           <div className={styles.brand}>
+            <img src="/images/logo.png" alt="Rahmos" height="180" style={{ marginBottom: "1rem" }} />
             <p className={styles.name}>{site.name}</p>
             <p className={styles.tagline}>{site.tagline}</p>
             <p className={styles.where}>{site.hq}</p>
             {socials.length > 0 && (
-  <ul className={styles.social} aria-label="Social media">
-    {socials.map(([key, url]) => (
-      <li key={key}>
-        <a href={url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons[key].label}>
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{socialIcons[key].icon}</svg>
-        </a>
-      </li>
-    ))}
-  </ul>
-)}
+              <ul className={styles.social} aria-label="Social media">
+                {socials.map(([key, url]) => (
+                  <li key={key}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" aria-label={socialIcons[key].label}>
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{socialIcons[key].icon}</svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <nav aria-label="Services">
